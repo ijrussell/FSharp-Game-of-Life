@@ -20,5 +20,7 @@
                     yield board.[m, n] ]
         |> List.sum
 
-    // tick event board -> board
+    let tick board =
+        board
+        |> Array2D.mapi (fun x y v -> isAlive (neighbourCount x y board) v)
 

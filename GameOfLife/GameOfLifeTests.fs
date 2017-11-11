@@ -61,3 +61,53 @@ let ``Diagonal cross returns 4`` () =
     neighbourCount 1 1 board
     |> should equal 4
 
+[<Test>]
+let ``Simple grid`` () =
+    let board = Array2D.copy emptyBoard
+    board
+    |> tick
+    |> should equal emptyBoard
+
+[<Test>]
+let ``One lonely cell dies on next step`` () =
+    let board = Array2D.copy emptyBoard
+    board.[0,0] <- 1
+    board
+    |> tick
+    |> should equal emptyBoard
+
+[<Test>]
+let ``Two cells die on next step`` () =
+    let board = Array2D.copy emptyBoard
+    board.[0,0] <- 1
+    board.[0,1] <- 1
+    board
+    |> tick
+    |> should equal emptyBoard
+
+[<Test>]
+let ``Three co-located cells live on next step and cell comes alive`` () =
+    let board = Array2D.copy emptyBoard
+    board.[0,0] <- 1
+    board.[0,1] <- 1
+    board.[1,0] <- 1
+    let expected = Array2D.copy board
+    expected.[1,1] <- 1
+    board
+    |> tick
+    |> should equal expected
+
+[<Test>]
+let ``Three cells in a horizontal line change to a vertical line on next step`` () =
+    let board = Array2D.copy emptyBoard
+    board.[0,1] <- 1
+    board.[1,1] <- 1
+    board.[2,1] <- 1
+    let expected = Array2D.copy board
+    expected.[0,1] <- 0
+    expected.[2,1] <- 0
+    expected.[1,0] <- 1
+    expected.[1,2] <- 1
+    board
+    |> tick
+    |> should equal expected
