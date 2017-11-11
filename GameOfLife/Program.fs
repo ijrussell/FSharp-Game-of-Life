@@ -1,7 +1,9 @@
-﻿// Learn more about F# at http://fsharp.org
-// See the 'F# Tutorial' project for more help.
+﻿// print a cell
+// print board
+// recusion for game
+// intialize the board
 
 [<EntryPoint>]
 let main argv = 
-    printfn "%A" argv
+    // start game
     0 // return an integer exit code
